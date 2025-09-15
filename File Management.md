@@ -14,7 +14,8 @@ int main()
 	fclose(fp);
 	printf("Data Writtern to file successfully\n");
 	return 0;
-} ```
+}
+```
 
 ## Develop a C program to open an existing text file and display its contents?
 ```c
@@ -34,7 +35,7 @@ int main()
     fclose(file);
     return 0;
 }
-
+```
 ## Implement a C program to create a new directory named "Test" in the current directory?
 ```c
 #include <stdio.h>
@@ -52,6 +53,4 @@ else {
 
     return 0;
 }
-
-
 ```
