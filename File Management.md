@@ -73,7 +73,7 @@ int main() {
 }
 ```
 
-##Develop a C program to rename a file from "oldname.txt" to "newname.txt"?
+## Develop a C program to rename a file from "oldname.txt" to "newname.txt"?
 ```c
 #include <stdio.h>
 int main()
@@ -91,7 +91,7 @@ else {
 }
 ```
 
-##Implement a C program to delete a file named "delete_me.txt"?
+## Implement a C program to delete a file named "delete_me.txt"?
 ```c
 #include <stdio.h>
 int main()
