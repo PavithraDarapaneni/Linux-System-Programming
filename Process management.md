@@ -83,7 +83,73 @@ perror("fork failed");
 return 0;
 }
 ```
+## Describe the role of exec() family of functions in process management.
+```c
+* The exec() family of functions in linux replaces the current process image with a new program
+* After successful exec(), the old code,data,stack and heap are replaces with the new program.
+* The PID remains the same meaning the process identity does not change,but its contents do.
+* If exec() succeeds,it never returns,if it fails it returns -1.
+* We can also say that the exec() family of functions plays a vital role in process management by replacing a process memory image with a new program, enabling execution of commands and ensuring cooperation between fork()[for creating a process] and exec()[for running a new program inside it].
 
+Example using fork() + exec()
+#include<stdio.h>
+#include<unistd.h>
+int main()
+{
+pid_t pid = fork();
+if(pid == 0)
+{
+printf("child: replacing process with 'ls' command...\n");
+execlp("ls","ls","-l",NULL);
+perror("exec failed");
+}
+else if (pid > 0)
+{
+printf("Parent: I created child with PID = %d\n",pid);
+}
+else
+{
+perror("Fork failed");
+}
+return 0;
+}
+```
+
+## Write a C Program to illustrate the use of execvp() function
+```c
+The function execvp() is useful because it
+i) Accepts the program name and arguments as a vector(array of strings).
+ii) Searches the program in the system's path environment variable.
+
+Example:
+
+#include<stdio.h>
+#include<unistd.h>
+#include<sys/types.h>
+int main()
+{
+pid_t pid = fork();
+if(pid<0)
+{
+perror("Fork failed");
+return 1;
+}
+else if(pid == 0)
+{
+printf("child : Executing 'ls-l' using execvp()...\n");
+char *args[] = {"ls","-l",NULL};
+execvp("ls",args);
+perror("execvp failed");
+}
+else
+{
+printf("Parentd: created child with PID = %d\n",pid);
+}
+return 0;
+}
+```
+
+#
 
 
 
