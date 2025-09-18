@@ -264,6 +264,126 @@ The mainpurpose of exit() are :
                                      But inside the whole program-only exit() can do that.
 ```
 
+## Explain how the execve() system call works and provide a code example.
+```c
+1. execv() replaces the current process image with a new program.
+2. It does not create a new process, instead , the calling process is transformed into the new program.
+3. Current process calls execve()
+4. Kernal loads the new program into the process memory space
+5. Old code, Stack and heap are replaced.
+
+#include<stdio.h>
+#include<unistd.h>
+#include<stdlib.h>
+int main()
+{
+pid_t pid = fork();
+if(pid < 0)
+{
+perror("Fork failed");
+return 1;
+}
+else if(pid == 0)
+{
+char *argv[] = {"ls","-l",NULL};
+char *envp[] = {NULL};
+printf("child: Executing ls-l using execve..\n");
+if(execve("/bin/ls",argv,envp) == -1)
+{
+perror("execve failed");
+exit(1);
+}
+}
+else
+{
+printf("Parent: created child with PID  %d\n",pid);
+wait(NULL);
+printf("Parent: Child finished execution\n");
+}
+return 0;
+}
+```
+## Discuss the role of fork() system call in implementing multitasking
+```c
+fork() is a system call that creates a new process(child) by duplicating the calling process(parent)
+The child process:
+1. Gets its own PID(unique process ID0
+2. Has a separate copy of the parent's memory space (though modern OS'es optimize with copy-on-write).
+3. Starts execution from the point right after the fork() call.
+How fork() enables multitasking:
+1. Parallel Execution: parent and child can execute different code paths after the fork.
+2. Process Independence: Each process has its own memory space, file descriptors and system resources. They can run independetly without interfering with each other.
+3. Process Hierarchy: fork() helps build the process tree, where parents create multiple children,leading to true multitasking.
+Ex: A shell uses fork() to run each command in a separate process.
+4. Resource Sharing: Though independent, processes can communicate via Inter-Process communication(IPC)mechanisms(pipes,shared memory,sockets)allowing cooperative multitasking.
+```
+## Write a C progrsm to create multiple child process using fork() and display their PID's
+```c
+#include<stdio.h>
+#include<unistd.h>
+#include<sys/types.h>
+#include<sys/wait.h>
+int main()
+{
+int n =3;
+pid_t pid;
+for(int i=0;i<n;i++)
+{
+  pid = fork();
+if (pid < 0)
+{
+perror("fork failed");
+return 1;
+}
+else if(pid == 0)
+{
+printf("Child %d: My PID = %d,My Parent PID = %d\n",i+1,getpid(),getppid());
+return 0;
+}
+}
+for(int i=0;i<n;i++)
+{
+wait (NULL);
+}
+printf("Parent : My PID = %d,All children finished\n",getpid();
+return 0;
+}
+```
+## How does the exec() system call replace the current process image with a new one?
+```c
+1. The exec() family of system calls(execl,execv,execvp,execve,etc) replaces the current process witha new program.
+   i. Unlike fork() which creates a new process
+  ii. exec() transforms the existing process into a new program
+2. Old memory code,stack and heap are discarded
+3. PID stays the same, but execution starts fresh from the new program
+4. If successful,exec() never returns.
+```
+
+## Explain the concept of process scheduling in operating systems.
+```c
+1. Process scheduling is the OS activity that decides which process runs on the CPU at any given time.
+2. Since,most systems have more processes than CPU's scheduling ensures: Fairness --> All Processes get a chance
+                                                                         Efficiency --> CPU stays busy
+                                                                         Responsiveness --> Interactive processes don't starve
+                                                                         Throughput --> More jobs complete in less time.
+3. Process scheduling ensures efficinet CPU utilization and fairness
+4. Happens at three levels: Long-term,Medium-term,Short-term
+5. Several algorithms(FCFS: First come first serve, SJF: shortest Job First, RR: Round Robin,Priority scheduling,Multilevel Queue scheduling, MLFQ: Multilevel Feed back Queue) are used depending on system goals
+6. It is essential for multitasking and responsive systems.
+```
+
+## Describe the role of clone() system call in process management
+```c
+1. Clone() is a linux-specific system call(not part of standard POSIX)
+2. It is a more flexible version of fork()
+3. While fork() creates a new process with a completely separate address space, clone() lets the programmer decide which part of the parent and child to share(Ex: memory,file descriptor,signal handlers)
+Role in process management :
+1. Thread creation: The GNU/LINUX pthread library uses clone() internally to implement threads
+2. Containerization: Linux namespaces(for process isolation in containers like Docker,LXC) are built using clone().
+3. Custom Process Sharing: Developers can fine-tune how much is shared betweenparrent and child. clone() allows partial sharing.
+4. Efficient Process creation: BY sharing memory or files, clone() can avoid duplication overheead,making it more efiicient in ccertain cases than fork().
+
+
 
 
 
