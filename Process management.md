@@ -382,36 +382,3 @@ Role in process management :
 2. Containerization: Linux namespaces(for process isolation in containers like Docker,LXC) are built using clone().
 3. Custom Process Sharing: Developers can fine-tune how much is shared betweenparrent and child. clone() allows partial sharing.
 4. Efficient Process creation: BY sharing memory or files, clone() can avoid duplication overheead,making it more efiicient in ccertain cases than fork().
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
