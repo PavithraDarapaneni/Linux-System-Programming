@@ -382,3 +382,13 @@ Role in process management :
 2. Containerization: Linux namespaces(for process isolation in containers like Docker,LXC) are built using clone().
 3. Custom Process Sharing: Developers can fine-tune how much is shared betweenparrent and child. clone() allows partial sharing.
 4. Efficient Process creation: BY sharing memory or files, clone() can avoid duplication overheead,making it more efiicient in ccertain cases than fork().
+```
+
+## Write a program in C to create a zombie process and explain how to avoid it.
+```c
+Zombie Process: It is a process that has finished execution (exit()) but still has an entry in the process table because its parent has not yet read its exit status using wait() or waitpid().
+To avoid Zombie process: Parent should always call wait() or waitpid() to collect the child’s exit status:
+                               wait(NULL);
+Use a signal handler for SIGCHLD: When a child exits, the parent receives SIGCHLD.The handler can call wait() to reap the child immediately.
+Double fork technique:The parent forks a child, and that child forks another child, then exits.
+The grandchild is re-parented to init (PID 1), which automatically reaps it.
