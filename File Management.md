@@ -1,4 +1,4 @@
-## Write a C program to create a new text file and write "Hello, World!" to it?
+## 1.Write a C program to create a new text file and write "Hello, World!" to it?
 ```c 
 #include<stdio.h>
 int main()
@@ -17,7 +17,7 @@ int main()
 }
 ```
 
-## Develop a C program to open an existing text file and display its contents?
+## 2.Develop a C program to open an existing text file and display its contents?
 ```c
 #include <stdio.h>
 int main() 
@@ -36,7 +36,7 @@ int main()
     return 0;
 }
 ```
-## Implement a C program to create a new directory named "Test" in the current directory?
+## 3.Implement a C program to create a new directory named "Test" in the current directory?
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -55,7 +55,7 @@ else {
 }
 ```
 
-## Write a C program to check if a file named "sample.txt" exists in the current directory?
+## 4.Write a C program to check if a file named "sample.txt" exists in the current directory?
 ```c
 #include <stdio.h>
 int main() {
@@ -73,7 +73,7 @@ int main() {
 }
 ```
 
-## Develop a C program to rename a file from "oldname.txt" to "newname.txt"?
+## 5.Develop a C program to rename a file from "oldname.txt" to "newname.txt"?
 ```c
 #include <stdio.h>
 int main()
@@ -91,7 +91,7 @@ else {
 }
 ```
 
-## Implement a C program to delete a file named "delete_me.txt"?
+## 6.Implement a C program to delete a file named "delete_me.txt"?
 ```c
 #include <stdio.h>
 int main()
@@ -108,7 +108,7 @@ else {
     return 0;
 }
 ```
-## Write a C program to copy the contents of one file to another?
+## 7.Write a C program to copy the contents of one file to another?
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -140,7 +140,7 @@ int main()
 }
 ```
 
-## Develop a C program to move a file from one directory to another?
+## 8.Develop a C program to move a file from one directory to another?
 ```c
 #include <stdio.h>
 int main()
@@ -158,7 +158,7 @@ int main()
 }
 ```
 
-## Implement a C program to list all files in the current directory?
+## 9.Implement a C program to list all files in the current directory?
 ```c
 #include <stdio.h>
 #include <dirent.h>
@@ -179,7 +179,7 @@ int main()
     return 0;
 }
 ```
-## Write a C program to get the size of a file named "file.txt"?
+## 10.Write a C program to get the size of a file named "file.txt"?
 ```c
 #include <stdio.h>
 int main()
@@ -199,7 +199,7 @@ int main()
     return 0;
 }
 ```
-##11.Develop a C program to check if a directory named "Test" exists in the current directory?
+## 11.Develop a C program to check if a directory named "Test" exists in the current directory?
 ```c
 #include<stdio.h>
 #include<stdlib.h>
